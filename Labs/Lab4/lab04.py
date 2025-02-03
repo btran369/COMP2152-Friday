@@ -72,5 +72,5 @@ elif item_selected in bad_loot_options:
     health_points = max (0, health_points - 2)
     print("That was awful!")
 else:
-    print("...That was not helpful...")
+    print("...That was not very helpful...")
 print(f"Updated health: {health_points}")
