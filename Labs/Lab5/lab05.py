@@ -171,7 +171,7 @@ if not input_invalid:
 
     # Lab 5: Call Recursive function
     print("    |", end="    ")
-    num_dream_lvls = input("How many dream levels do you want to go down?")
+    num_dream_lvls = input("How many dream levels do you want to go down? ")
     if num_dream_lvls != 0:
         health_points -= 1
         crazy_level = functions_lab05.inception_dream(num_dream_lvls)
