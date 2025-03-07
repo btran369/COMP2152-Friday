@@ -33,7 +33,7 @@ if pid == 0:
 else:
     print(f"\nParent PID: {os.getpid}, Child PID: {os.pid}")
     print("Wait for child...")
-    os.wait()
+    os.waitpid(pid, 0)
     print("Child finished.")
     file_obj_textIO.close()
 sys.exit(0)
