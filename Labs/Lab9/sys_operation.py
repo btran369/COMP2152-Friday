@@ -23,7 +23,7 @@ file_obj_textIO.flush()
 #UNIX ONLY
 #pid = os.fork()
 
-pid = 1
+pid = 0
 if pid == 0:
     print(f"\nChild PID: {os.getpid()}, Parent PID: {os.getppid}")
     os.lseek(file_handle, 0, 0)
