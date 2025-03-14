@@ -19,7 +19,7 @@ try:
                 query2 = "DELETE FROM demo WHERE ID < ?"
                 cursor.execute(query2, (del_row,))
                 num_rows = cursor.rowcount
-                print(f"{num_rows} affected")
+                print(f"{num_rows} rows affected")
                 db_connection.commit()
             except Exception as e:
                 print("Error Executing Query 2")
