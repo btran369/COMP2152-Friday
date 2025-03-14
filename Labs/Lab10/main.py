@@ -13,5 +13,15 @@ try:
                     print(row["name"])
             except Exception as e:
                 print("Error Executing Query 1")
+            
+            try:
+                del_row = int(input("Enter the row ID threshold for deletion:   "))
+                query2 = "DELETE FROM demo WHERE ID < ?"
+                cursor.execute(query2, (del_row,))
+                num_rows = cursor.rowcount
+                print(f"{num_rows} affected")
+                db_connection.commit()
+            except Exception as e:
+                print("Error Executing Query 2")
 except sqlite3.Error as e:
     print("Failed Connection to database")
