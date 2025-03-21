@@ -5,6 +5,7 @@ import random
 # print("Inside function.py")
 
 
+# Lab 4: Question 4
 def use_loot(belt, health_points):
     good_loot_options = ["Health Potion", "Leather Boots"]
     bad_loot_options = ["Poison Potion"]
@@ -22,6 +23,7 @@ def use_loot(belt, health_points):
     return belt, health_points
 
 
+# Lab 4: Question 3 
 def collect_loot(loot_options, belt):
     ascii_image3 = """
                       @@@ @@                
@@ -112,6 +114,7 @@ def monster_attacks(m_combat_strength, health_points):
         print("    |    The monster has reduced Player's health to: " + str(health_points))
     return health_points
 
+# Lab 5: Question 7
 # Recursion
 # You can choose to go crazy, but it will reduce your health points by 5
 def inception_dream(num_dream_lvls):
@@ -134,43 +137,40 @@ def inception_dream(num_dream_lvls):
         # 1 + 1 + 1 + 1 + 2
         return 1 + int(inception_dream(num_dream_lvls - 1))
 
-
 # Lab 06 - Question 3 and 4
 def save_game(winner, hero_name="", num_stars=0):
-    with open("save.txt", "a") as file:
+    with open('save.txt', 'a') as file:
         if winner == "Hero":
-            file.write(f"Hero {hero_name} has killed a monster and gained {num_stars} stars.\n")
+            file.write(f"Hero {hero_name} has killed the Monster and gained {num_stars} stars.")
         elif winner == "Monster":
-            file.write("Monster has killed the hero previously\n")
-
+            file.write(f"Monster killed the {hero_name}!")        
+    
+    return True
 # Lab 06 - Question 5a
 def load_game():
     try:
-        with open("save.txt", "r") as file:
-            print("    |    Loading from saved file ...")
+        with open('save.txt', 'r') as file:
+            print("    |    Loading from saved file..")
             lines = file.readlines()
             if lines:
                 last_line = lines[-1].strip()
                 print(last_line)
                 return last_line
     except FileNotFoundError:
-        print("No previous game found. Starting fresh.")
+        print("    |    No previous game found. Starting fresh..")
         return None
-
+    
 # Lab 06 - Question 5b
-def adjust_combat_strength(combat_strength, m_combat_strength):
-    # Lab Week 06 - Question 5 - Load the game
+def adjust_combat_strength(hero, monster):
     last_game = load_game()
     if last_game:
         if "Hero" in last_game and "gained" in last_game:
             num_stars = int(last_game.split()[-2])
             if num_stars > 3:
-                print("    |    ... Increasing the monster's combat strength since you won so easily last time")
-                m_combat_strength += 1
-        elif "Monster has killed the hero" in last_game:
-            combat_strength += 1
-            print("    |    ... Increasing the hero's combat strength since you lost last time")
+                monster.combat_strength += 1
+                print("    |     Increasing Monster's Combat Strength!")
+        elif "Monster killed" in last_game:
+            hero.combat_strength += 1
+            print("    |     Increasing Hero's Combat Strength!")
         else:
-            print("    |    ... Based on your previous game, neither the hero nor the monster's combat strength will be increased")
-
-
+            print("    |     Last game had no effect on Hero/Monster Combat Strength!")
