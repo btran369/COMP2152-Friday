@@ -185,7 +185,7 @@ if not input_invalid:
     while(num_dream_lvls < 0 or num_dream_lvls > 3):
         # Call Recursive function
         print("    |", end="    ")
-        num_dream_lvls = input("How many dream levels do you want to go down?")
+        num_dream_lvls = input("How many dream levels do you want to go down? ")
         if (num_dream_lvls == ""):
             num_dream_lvls = -1
             print("You should enter a whole number between 0 and 3 inclusive. Try again!")
@@ -195,7 +195,7 @@ if not input_invalid:
                 num_dream_lvls = -1
                 print("You should enter a whole number between 0 and 3 inclusive. Try again!")
             elif num_dream_lvls != 0:
-                heroObj.health_points -= 1
+                heroObj.health_points = max (0, heroObj.health_points - 1)
                 crazy_level = functions.inception_dream(num_dream_lvls)
                 heroObj.combat_strength += crazy_level
                 print("combat strength: " + str(heroObj.combat_strength))
@@ -215,7 +215,7 @@ if not input_invalid:
         if not (attack_roll % 2 == 0):
             print("    |", end="    ")
             input("You strike (Press enter)")
-            monsterObj.health_points = heroObj.hero_attacks(monsterObj.health_points)
+            monsterObj.health_points = max(0,heroObj.hero_attacks(monsterObj.health_points))
             if monsterObj.health_points <= 0:
                 num_stars = 3
                 break
@@ -223,28 +223,32 @@ if not input_invalid:
                 print("    |", end="    ")
                 print("------------------------------------------------------------------")
                 input("    |    The monster strikes (Press enter)!!!")
-                heroObj.health_points = monsterObj.monster_attacks(heroObj.health_points)
+                heroObj.health_points = max(0, monsterObj.monster_attacks(heroObj.health_points))
                 if heroObj.health_points <= 0:
                     num_stars = 1
                     break
                 else:
                     num_stars = 2
+                    break
                     
         else:
             print("    |", end="    ")
             input("The Monster strikes (Press enter)")
-            heroObj.health_points = monsterObj.monster_attacks(heroObj.health_points)
-            if heroObj.health_points == 0:
+            heroObj.health_points = max(0, monsterObj.monster_attacks(heroObj.health_points))
+            if heroObj.health_points <= 0:
                 num_stars = 1
+                break
             else:
                 print("    |", end="    ")
                 print("------------------------------------------------------------------")
                 input("The hero strikes!! (Press enter)")
-                monsterObj.health_points = heroObj.hero_attacks(monsterObj.health_points)
-                if monsterObj.health_points == 0:
+                monsterObj.health_points = max(0,heroObj.hero_attacks(monsterObj.health_points))
+                if monsterObj.health_points <= 0:
                     num_stars = 3
+                    break
                 else:
                     num_stars = 2
+                    break
     if (monsterObj.health_points <= 0):
         winner = "Hero"
     else:

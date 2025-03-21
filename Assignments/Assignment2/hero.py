@@ -10,8 +10,6 @@ class Hero(Character):
     # Construtor
     def __init__(self):
         super().__init__()
-        self.combat_strength = random.choice(small_dice_options)
-        self.health_points = random.choice(big_dice_options)
 
     def __del__(self):
         super().__del__()
