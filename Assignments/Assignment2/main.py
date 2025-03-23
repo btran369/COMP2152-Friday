@@ -1,12 +1,18 @@
 # Import the random library to use for the dice later
 import random
 import functions, hero, monster, character
+import platform, socket, os, sys
 from monster import Monster
 from hero import Hero
 from character import Character
 
 heroObj = Hero()
 monsterObj = Monster()
+
+# Assignment 2 misc questions
+print(f"Operating System Name: {os.name}")
+print(f"Python Version: {platform.python_version()}")
+
 
 
 
@@ -182,25 +188,25 @@ if not input_invalid:
         monsterObj.combat_strength) + " using the " + power_roll + " magic power")
     # Lab 06 - Question 6
     num_dream_lvls = -1
-    while(num_dream_lvls < 0 or num_dream_lvls > 3):
-        # Call Recursive function
-        print("    |", end="    ")
-        num_dream_lvls = input("How many dream levels do you want to go down? ")
-        if (num_dream_lvls == ""):
-            num_dream_lvls = -1
-            print("You should enter a whole number between 0 and 3 inclusive. Try again!")
-        else:
-            num_dream_lvls = int(num_dream_lvls)
-            if (num_dream_lvls < 0) or (num_dream_lvls > 3):
-                num_dream_lvls = -1
+    while num_dream_lvls < 0 or num_dream_lvls > 3:
+        try:
+            print("    |", end="    ")
+            num_dream_lvls = int(input("How many dream levels do you want to go down? "))
+            if num_dream_lvls < 0 or num_dream_lvls > 3:
                 print("You should enter a whole number between 0 and 3 inclusive. Try again!")
+                num_dream_lvls = -1
             elif num_dream_lvls != 0:
-                heroObj.health_points = max (0, heroObj.health_points - 1)
+                heroObj.health_points = max(0, heroObj.health_points - 1)
                 crazy_level = functions.inception_dream(num_dream_lvls)
                 heroObj.combat_strength += crazy_level
                 print("combat strength: " + str(heroObj.combat_strength))
                 print("health points: " + str(heroObj.health_points))
+        except ValueError:
+            print("You should enter a whole number between 0 and 3 inclusive. Try again!")
+            num_dream_lvls = -1
+
         print("num_dream_lvls: ", num_dream_lvls)
+
     # Fight Sequence
     # Loop while the monster and the player are alive. Call fight sequence functions
     print("    ------------------------------------------------------------------")
@@ -218,6 +224,7 @@ if not input_invalid:
             monsterObj.health_points = max(0,heroObj.hero_attacks(monsterObj.health_points))
             if monsterObj.health_points <= 0:
                 num_stars = 3
+                winner = "Hero"
                 break
             else:
                 print("    |", end="    ")
@@ -226,6 +233,7 @@ if not input_invalid:
                 heroObj.health_points = max(0, monsterObj.monster_attacks(heroObj.health_points))
                 if heroObj.health_points <= 0:
                     num_stars = 1
+                    winner = "Monster"
                     break
                 else:
                     num_stars = 2
@@ -237,6 +245,7 @@ if not input_invalid:
             heroObj.health_points = max(0, monsterObj.monster_attacks(heroObj.health_points))
             if heroObj.health_points <= 0:
                 num_stars = 1
+                winner = "Monster"
                 break
             else:
                 print("    |", end="    ")
@@ -245,6 +254,7 @@ if not input_invalid:
                 monsterObj.health_points = max(0,heroObj.hero_attacks(monsterObj.health_points))
                 if monsterObj.health_points <= 0:
                     num_stars = 3
+                    winner = "Hero"
                     break
                 else:
                     num_stars = 2

@@ -139,26 +139,53 @@ def inception_dream(num_dream_lvls):
 
 # Lab 06 - Question 3 and 4
 def save_game(winner, hero_name="", num_stars=0):
-    with open('save.txt', 'w') as file:
+    monster_kill_count = 0
+
+    # Try to read the current monster kill count from file
+    try:
+        with open('save.txt', 'r') as file:
+            lines = file.readlines()
+            for line in reversed(lines):
+                if line.startswith("Monsters killed:"):
+                    monster_kill_count = int(line.strip().split(":")[1])
+                    break
+    except FileNotFoundError:
+        monster_kill_count = 0
+
+    with open('save.txt', 'a') as file:
         if winner == "Hero":
-            file.write(f"Hero {hero_name} has killed the Monster and gained {num_stars} stars.")
+            file.write(f"Hero {hero_name} has killed the Monster and gained {num_stars} stars.\n")
+            monster_kill_count += 1
+            file.write(f"Monsters killed: {monster_kill_count}\n")
         elif winner == "Monster":
-            file.write(f"Monster killed the {hero_name}!")        
-    
+            file.write(f"Monster killed the {hero_name}!\n")
+            file.write(f"Monsters killed: {monster_kill_count}\n")
+
     return True
+
 # Lab 06 - Question 5a
 def load_game():
     try:
         with open('save.txt', 'r') as file:
             print("    |    Loading from saved file..")
             lines = file.readlines()
-            if lines:
-                last_line = lines[-1].strip()
-                print(last_line)
-                return last_line
+            last_game_line = ""
+            monster_kill_count = 0
+            for line in lines:
+                if line.startswith("Hero") or line.startswith("Monster"):
+                    last_game_line = line.strip()
+                elif line.startswith("Monsters killed:"):
+                    monster_kill_count = int(line.strip().split(":")[1])
+
+            if last_game_line:
+                print(last_game_line)
+            print(f"    |    Total monsters killed across all games: {monster_kill_count}")
+            return last_game_line, monster_kill_count
     except FileNotFoundError:
         print("    |    No previous game found. Starting fresh..")
-        return None
+        return None, 0
+
+
     
 # Lab 06 - Question 5b
 def adjust_combat_strength(hero, monster):

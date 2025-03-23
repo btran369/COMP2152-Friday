@@ -17,11 +17,10 @@ class Character:
 
     @combat_strength.setter
     def combat_strength(self, strength):
-        if isinstance(strength, int) and strength > 0:
+        if isinstance(strength, int) and strength >= 0:
             self.__combat_strength = strength
         else:
-            print("Invalid combat strength. Setting to default random.")
-            self.__combat_strength = random.choice(small_dice_options)
+            print("Invalid combat strength.")
 
     @property
     def health_points(self):
@@ -29,8 +28,7 @@ class Character:
 
     @health_points.setter
     def health_points(self, hp):
-        if isinstance(hp, int) and hp > 0:
+        if isinstance(hp, int) and hp >= 0:
             self.__health_points = hp
         else:
-            print("Invalid health points. Setting to default random.")
-            self.__health_points = random.choice(big_dice_options)
+            print("Invalid health points.")
