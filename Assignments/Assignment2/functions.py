@@ -139,7 +139,7 @@ def inception_dream(num_dream_lvls):
 
 # Lab 06 - Question 3 and 4
 def save_game(winner, hero_name="", num_stars=0):
-    with open('save.txt', 'a') as file:
+    with open('save.txt', 'w') as file:
         if winner == "Hero":
             file.write(f"Hero {hero_name} has killed the Monster and gained {num_stars} stars.")
         elif winner == "Monster":
@@ -174,3 +174,4 @@ def adjust_combat_strength(hero, monster):
             print("    |     Increasing Hero's Combat Strength!")
         else:
             print("    |     Last game had no effect on Hero/Monster Combat Strength!")
+    return hero, monster

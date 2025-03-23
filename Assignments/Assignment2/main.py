@@ -11,10 +11,10 @@ monsterObj = Monster()
 
 
 
-print("    ------------------------------------------------------------------")
-print("    |    Loading previous game data...")
-# Lab 06 - Question 5
-last_game = functions.load_game()
+# print("    ------------------------------------------------------------------")
+# print("    |    Loading previous game data...")
+# # Lab 06 - Question 5
+# heroObj, monsterObj = functions.adjust_combat_strength(heroObj, monsterObj)
 # Game Flow
 # Define two Dice
 small_dice_options = list(range(1, 7))
@@ -95,7 +95,7 @@ if not input_invalid:
     print("    |    The hero\'s weapon is " + str(weapons[weapon_roll - 1]))
 
     # Lab 06 - Question 5b
-    functions.adjust_combat_strength(heroObj.combat_strength,monsterObj.combat_strength)
+    functions.adjust_combat_strength(heroObj,monsterObj)
     # Weapon Roll Analysis
     print("    ------------------------------------------------------------------")
     print("    |", end="    ")
